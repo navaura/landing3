@@ -411,13 +411,16 @@
         // CONFIGURATION
         // =============================================
         const BACKEND_URL = 'https://blogaura.navaura.in';
-        const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug');
         
         // =============================================
         // BLOG LIST FUNCTIONALITY
         // =============================================
         async function loadBlogList() {
+            const blogGrid = document.getElementById('blog-grid');
+            
+            // Show loading state
+            blogGrid.innerHTML = '<div class="loading">Loading blogs...</div>';
+            
             try {
                 const response = await fetch(`${BACKEND_URL}/api/blogs`);
                 const data = await response.json();
@@ -429,7 +432,7 @@
                 
             } catch (error) {
                 console.error('Error loading blog list:', error);
-                document.getElementById('blog-grid').innerHTML = `
+                blogGrid.innerHTML = `
                     <div class="error">
                         <h3>Unable to load blogs</h3>
                         <p>There was an error loading the blog list. Please try again later.</p>
@@ -484,8 +487,13 @@
             document.getElementById('blog-content').classList.add('hidden');
             document.getElementById('more-articles-container').classList.add('hidden');
             
-            // Update title
+            // Update title and SEO
             document.title = 'Blog | NAVAURA™ ARCTIQ';
+            document.getElementById('page-title').textContent = 'Blog | NAVAURA™ ARCTIQ';
+            document.getElementById('page-description').setAttribute('content', 'Explore our latest insights and articles');
+            
+            // CRITICAL FIX: Reload the blog list data
+            loadBlogList();
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -538,12 +546,15 @@
         }
         
         async function loadBlog() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
             const blogContent = document.getElementById('blog-content');
             
             if (!slug) {
                 // No slug - show blog list
                 document.getElementById('blog-list-container').classList.remove('hidden');
                 blogContent.classList.add('hidden');
+                document.getElementById('more-articles-container').classList.add('hidden');
                 loadBlogList();
                 return;
             }
