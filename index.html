@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NAVAURA ARCTIQ — Next-Generation Development Platform</title>
+  <title>NAVAURA ARCTIQ — Next-Generation Development Company</title>
   <meta name="description" content="
 Custom software, automation systems, and AI solutions designed to replace manual operations.
 Built in India. Deployed for scale. Navaura Arctiq.
@@ -47,15 +47,18 @@ Built in India. Deployed for scale. Navaura Arctiq.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <style>
     :root {
-      --bg: #030303;
-      --surface: #0a0a0a;
-      --fg: #ffffff;
-      --dim: rgba(255, 255, 255, 0.4);
-      --border: rgba(255, 255, 255, 0.1);
-      --font-main: 'Manrope', sans-serif;
-      --font-mono: 'Space Mono', monospace;
+      --bg: #0a0a0a;
+      --fg: #f5f5f5;
+      --accent: #ffffff;
+      --dim: #666;
+      --border: #222;
+      --font-mono: 'Courier New', monospace;
+      --font-sans: system-ui, -apple-system, sans-serif;
     }
 
     * {
@@ -63,23 +66,15 @@ Built in India. Deployed for scale. Navaura Arctiq.
       padding: 0;
       box-sizing: border-box;
     }
-    
-    html {
-      overflow-x: hidden;
-      width: 100%;
-    }
 
     body {
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--fg);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-      width: 100%;
+      font-family: var(--font-sans);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* --- BACKGROUND GRID --- */
     .bg-grid {
       position: fixed;
       top: 0;
@@ -89,617 +84,470 @@ Built in India. Deployed for scale. Navaura Arctiq.
       background-image: 
         linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 100px 100px;
-      opacity: 0.05;
+      background-size: 50px 50px;
+      opacity: 0.3;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* --- TYPOGRAPHY --- */
-    h1, h2, h3 {
-      font-weight: 800;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Logo Watermark */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      max-width: 700px;
+      height: 60%;
+      background-image: url('./logow.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.03;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (max-width: 968px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.95;
       letter-spacing: -0.03em;
-      line-height: 1.1;
+      margin: 0;
+    }
+
+    .hero h1 .line {
+      display: block;
+    }
+
+    .hero h1 .line-solid {
+      color: var(--fg);
+    }
+
+    .hero h1 .line-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--fg);
+      text-stroke: 2px var(--fg);
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--dim);
+      line-height: 1.8;
+      max-width: 500px;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      width: fit-content;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: 2px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--fg);
+      color: var(--fg);
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 0;
+      position: relative;
     }
 
     .mono-label {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      letter-spacing: 0.05em;
+      color: var(--accent);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--dim);
       display: block;
       margin-bottom: 1rem;
     }
 
     .section-title {
       font-size: clamp(2rem, 5vw, 3.5rem);
-      margin-bottom: 4rem;
-      border-left: 2px solid var(--fg);
-      padding-left: 2rem;
+      font-weight: 900;
+      margin-bottom: 3rem;
+      letter-spacing: -0.02em;
     }
 
-    /* --- LAYOUT UTILS --- */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 5%;
-      position: relative;
-      z-index: 2;
-    }
-
-    section {
-      padding: 8rem 0;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* --- HERO --- */
-    .hero {
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 10vh;
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 4rem;
-      align-items: flex-end;
-    }
-
-    .hero h1 {
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      line-height: 0.95;
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 span {
-      display: block;
-    }
-
-    .hero h1 .outline {
-      color: transparent;
-      -webkit-text-stroke: 1px var(--fg);
-      opacity: 0.5;
-    }
-
-    .hero-desc {
-      font-family: var(--font-mono);
-      font-size: 1rem;
-      color: var(--dim);
-      max-width: 400px;
-      margin-bottom: 2rem;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem 3rem;
-      background: var(--fg);
-      color: var(--bg);
-      font-family: var(--font-mono);
-      font-weight: 700;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary:hover {
-      background: #ccc;
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem 3rem;
-      background: transparent;
-      color: var(--fg);
-      border: 1px solid var(--border);
-      font-family: var(--font-mono);
-      font-weight: 700;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--fg);
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateY(-2px);
-    }
-
-    /* --- ASYMMETRIC GRID --- */
+    /* GRID LAYOUT */
     .grid-layout {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      border-top: 1px solid var(--border);
-      border-left: 1px solid var(--border);
+      gap: 1.5rem;
     }
 
     .grid-cell {
-      padding: 3rem;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      transition: background 0.3s ease;
-      background: rgba(3, 3, 3, 0.4);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
     .grid-cell:hover {
-      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-12 { grid-column: span 12; }
+
+    @media (max-width: 768px) {
+      .span-4, .span-6 { grid-column: span 12; }
+    }
+
+    .module-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 1rem;
+      color: var(--fg);
     }
 
     .grid-cell h3 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      font-weight: 600;
+      color: var(--accent);
     }
 
     .grid-cell p {
       color: var(--dim);
-      font-size: 0.95rem;
+      line-height: 1.8;
     }
 
-    .grid-cell::before {
-      content: '+';
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: var(--border);
+    /* METRICS */
+    .metrics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .metric-card {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+    }
+
+    .metric-val {
+      display: block;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* TECH STACK */
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .tech-pill {
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .tech-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* BLOG SECTION */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .blog-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .blog-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+
+    .blog-summary {
+      color: var(--dim);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .blog-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .blog-loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--dim);
       font-family: var(--font-mono);
     }
 
-    .module-icon {
-      font-size: 2rem;
+    .blog-error {
+      text-align: center;
+      padding: 3rem;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .blog-error h3 {
+      color: var(--fg);
       margin-bottom: 1rem;
-      display: block;
-      opacity: 0.6;
     }
 
-    .span-12 { grid-column: span 12; }
-    .span-8  { grid-column: span 8; }
-    .span-6  { grid-column: span 6; }
-    .span-4  { grid-column: span 4; }
-    .span-5  { grid-column: span 5; }
-    .span-7  { grid-column: span 7; }
-    
-    @media (max-width: 900px) {
-      .grid-layout { grid-template-columns: 1fr; }
-      .grid-cell { grid-column: span 1 !important; }
+    /* REVEAL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
     }
 
-    /* --- METRICS --- */
-.metrics-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.metric-card {
-  padding: 3rem 2rem;
-  border: 1px solid var(--border);
-  background: rgba(10, 10, 10, 0.5);
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
-}
-
-.metric-card:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-5px);
-}
-
-.metric-val {
-  font-size: 4rem;
-  font-weight: 800;
-  display: block;
-  line-height: 1;
-  margin-bottom: 1rem;
-  letter-spacing: -0.05em;
-}
-
-/* --- TECH STACK GRID --- */
-.stack-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 3rem;
-}
-
-.tech-pill {
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-
-.tech-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--fg);
-  transform: translateY(-2px);
-}
-
-/* --- REVEAL ANIMATIONS --- */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* --- LOGO BADGE --- */
-.logo-badge {
-  position: fixed;
-  top: 55rem;
-  right: 2rem;
-  z-index: 1000;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.logo-badge:hover {
-  opacity: 1;
-}
-
-.logo-badge img {
-  width: 40px;
-  height: auto;
-  filter: brightness(0) invert(1);
-}
-
-.hero-logo-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.02;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-logo-bg img {
-  width: min(800px, 90vw);
-  height: auto;
-  filter: brightness(0) invert(1);
-}
-
-/* ========================================= */
-/* BLOG SECTION STYLES - MATCHING YOUR THEME */
-/* ========================================= */
-
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.blog-card {
-  background: rgba(10, 10, 10, 0.5);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  position: relative;
-}
-
-.blog-card:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-5px);
-}
-
-.blog-card::before {
-  content: '+';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  color: var(--border);
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  z-index: 2;
-}
-
-.blog-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  background: rgba(255, 255, 255, 0.03);
-  filter: grayscale(0.8);
-  transition: filter 0.3s ease;
-}
-
-.blog-card:hover .blog-image {
-  filter: grayscale(0);
-}
-
-.blog-content {
-  padding: 2rem;
-}
-
-.blog-title {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: var(--fg);
-  font-weight: 600;
-}
-
-.blog-summary {
-  color: var(--dim);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.blog-meta {
-  color: var(--dim);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.blog-loading {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-}
-
-.blog-error {
-  background: rgba(255, 193, 7, 0.1);
-  border: 1px solid rgba(255, 193, 7, 0.3);
-  padding: 2rem;
-  color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.blog-error h3 {
-  color: var(--fg);
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-}
-
-.blog-error p {
-  margin: 0.5rem 0;
-}
-
-@media (max-width: 768px) {
-  .logo-badge {
-    display: none;
-  }
-  
-  .blog-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .hero h1 {
-    font-size: clamp(2.5rem, 12vw, 4rem);
-  }
-  
-  .section-title {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
-    padding-left: 1rem;
-  }
-  
-  .container {
-    padding: 0 4%;
-  }
-  
-  section {
-    padding: 4rem 0;
-  }
-  
-  .grid-cell {
-    padding: 2rem 1.5rem;
-  }
-  
-  .cta-group {
-    flex-direction: column;
-  }
-  
-  .btn-primary, .btn-secondary {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 414px) {
-  .hero h1 {
-    font-size: clamp(2rem, 15vw, 3rem);
-  }
-  
-  .container {
-    padding: 0 3%;
-  }
-  
-  .btn-primary, .btn-secondary {
-    padding: 1rem 2rem;
-    font-size: 0.75rem;
-  }
-  
-  .grid-cell {
-    padding: 1.5rem 1rem;
-  }
-  
-  .hero-logo-bg img {
-    width: 95vw;
-  }
-}
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
-<!-- Add right after <body> tag -->
-<div class="logo-badge">
-  <img src="https://www.navaura.in/logow.png" alt="Navaura Arctiq">
-</div>
-  <!-- Background Grid -->
   <div class="bg-grid"></div>
-
+  
   <!-- Navigation Placeholder -->
   <div id="navigation-placeholder"></div>
 
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div class="hero-content">
-        <div class="reveal">
-
-   <div class="hero-logo-bg">
-  <img src="https://www.navaura.in/logow.png" alt="">
-</div>
-<span class="mono-label">Navaura™ Arctiq // Infrastructure, Not Software</span>
-<h1>
-  <span>SYSTEMS</span>
-  <span class="outline">THAT</span>
-  <span> REMOVE WORK</span>
-</h1>
-
-
-        </div>
-        <div class="reveal" style="transition-delay: 0.2s;">
-<p class="hero-desc">
-  We design automation-first digital systems that replace manual processes,
-  reduce operational friction, and scale without proportional effort.
-</p>
-<div class="cta-group">
+      <div class="hero-left">
+        <div class="hero-tagline">NAVAURA™ ARCTIQ // INFRASTRUCTURE, NOT SOFTWARE</div>
+        <h1>
+          <span class="line line-solid">SYSTEMS</span>
+          <span class="line line-outline">THAT</span>
+          <span class="line line-solid">REMOVE</span>
+          <span class="line line-solid">WORK</span>
+        </h1>
+      </div>
+      
+      <div class="hero-right">
+        <p class="hero-desc">
+          We design automation-first digital systems that replace manual processes, reduce operational friction, and scale without proportional effort.
+        </p>
+        <div class="cta-group">
   <a href="#" class="chatui btn-primary">Deploy a System</a>
   <a href="./company/contact" class="btn-secondary">Request Access</a>
-</div>
-
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DIFFERENCE SECTION -->
-  <section id="difference">
+  <!-- MODULES -->
+  <section id="modules">
     <div class="container">
-      <span class="mono-label">01 // Approach</span>
-      <h2 class="section-title reveal">WHAT OTHERS BREAK</h2>
-
-      <div class="grid-layout">
-        <div class="grid-cell span-8 reveal">
-          <span class="module-icon">⚡</span>
-      <h3>Compressed Execution</h3>
-<p>
-We eliminate unnecessary cycles.
-Production-ready systems are deployed quickly because scope, structure,
-and automation are defined upfront.
-</p>
-  </div>
-        
-        <div class="grid-cell span-4 reveal" style="transition-delay: 0.1s;">
-          <span class="module-icon">📈</span>
-<h3>Load-Agnostic Architecture</h3>
-<p>
-Systems designed to absorb growth without rewrites,
-manual tuning, or operational panic.
-</p>
-
+      <span class="mono-label">01 // Deployment Architecture</span>
+      <h2 class="section-title reveal">BUILT FOR OPERATIONAL CONTROL</h2>
+      
+      <div class="grid-layout reveal">
+        <div class="grid-cell span-6">
+          <i class="fa-solid fa-code module-icon"></i>
+          <h3>Custom Software Development</h3>
+          <p>End-to-end systems built from requirements → production. 
+          Not templates. Not frameworks. Direct control over architecture.</p>
         </div>
 
-        <div class="grid-cell span-5 reveal">
-          <span class="module-icon">🔄</span>
-<h3>Minimal Human Dependency</h3>
-<p>
-Once deployed, systems require little intervention.
-No fragile setups. No operational babysitting.
-</p>
+        <div class="grid-cell span-6">
+          <i class="fa-solid fa-gears module-icon"></i>
+          <h3>Automation Infrastructure</h3>
+          <p>Reduce repetitive workflows to zero. Systems that act, not react. 
+          Designed for resilience and minimal supervision.</p>
         </div>
 
-        <div class="grid-cell span-7 reveal" style="transition-delay: 0.1s;">
-          <span class="module-icon">🤖</span>
-  <h3>Embedded Intelligence</h3>
-<p>
-AI is integrated where decisions, classification, and optimization matter —
-quietly handling repetition at scale.
-</p>
-      </div>
-
-        <div class="grid-cell span-4 reveal">
-          <span class="module-icon">🛡️</span>
-<h3>Zero-Trust by Default</h3>
-<p>
-Access is enforced by systems, not assumptions.
-Every request is verified. Every boundary is explicit.
-</p>
-
+        <div class="grid-cell span-4">
+          <i class="fa-solid fa-brain module-icon"></i>
+          <h3>AI Integration</h3>
+          <p>Task-specific AI models tuned for performance. 
+          Not trends — operational tools.</p>
         </div>
 
-        <div class="grid-cell span-8 reveal" style="transition-delay: 0.1s;">
-          <span class="module-icon">💰</span>
-<h3>Operational Leverage</h3>
-<p>
-Lower costs are a side-effect of automation.
-Systems replace recurring effort, not just initial expense.
-</p>
-</div>
+        <div class="grid-cell span-4">
+          <i class="fa-solid fa-plug module-icon"></i>
+          <h3>API Development</h3>
+          <p>Secure, scalable, and documented. 
+          Clean integration layers between systems.</p>
+        </div>
+
+        <div class="grid-cell span-4">
+          <i class="fa-solid fa-database module-icon"></i>
+          <h3>Data Systems</h3>
+          <p>Pipelines designed for clarity. 
+          Storage optimized for retrieval.</p>
+        </div>
+
+        <div class="grid-cell span-12">
+          <i class="fa-solid fa-shield-halved module-icon"></i>
+          <h3>System Maintenance & Evolution</h3>
+          <p>Post-deployment support isn't optional — it's part of the lifecycle. 
+          Continuous optimization. Controlled iteration. Long-term system integrity.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- COMPARISON SECTION -->
-  <section id="comparison">
+  <!-- METRICS SECTION -->
+  <section>
     <div class="container">
-<span class="mono-label">02 // Metrics</span>
-<h2 class="section-title reveal">THE DIFFERENCE, MEASURED</h2>
-
+      <span class="mono-label">02 // Metrics</span>
+      <h2 class="section-title reveal">THE DIFFERENCE, MEASURED</h2>
       
       <div class="metrics-container reveal">
-  <div class="metric-card">
-  <span class="metric-val">3×</span>
-  <span class="mono-label">Faster Deployment</span>
-</div>
-<div class="metric-card">
-  <span class="metric-val">83%</span>
-  <span class="mono-label">Lower Operational Cost</span>
-</div>
-<div class="metric-card">
-  <span class="metric-val">24h</span>
-  <span class="mono-label">Initial System Draft</span>
-</div>
-<div class="metric-card">
-  <span class="metric-val">100%</span>
-  <span class="mono-label">Purpose-Built</span>
-</div>
-
+        <div class="metric-card">
+          <span class="metric-val">3×</span>
+          <span class="mono-label">Faster Deployment</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val">83%</span>
+          <span class="mono-label">Lower Operational Cost</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val">24h</span>
+          <span class="mono-label">Initial System Draft</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val">100%</span>
+          <span class="mono-label">Purpose-Built</span>
+        </div>
       </div>
     </div>
   </section>
@@ -731,9 +579,7 @@ Systems replace recurring effort, not just initial expense.
     </div>
   </section>
 
-  <!-- ========================================= -->
-  <!-- BLOG SECTION - NEW! -->
-  <!-- ========================================= -->
+  <!-- BLOG SECTION -->
   <section id="blog">
     <div class="container">
       <span class="mono-label">04 // Insights</span>
@@ -745,30 +591,99 @@ Systems replace recurring effort, not just initial expense.
     </div>
   </section>
 
-<p style="text-align:center; font-family: var(--font-mono); font-size:0.75rem; color:var(--dim); margin-top:4rem;">
-Manual work scales cost. Systems scale control.
-</p>
+  <p style="text-align:center; font-family: var(--font-mono); font-size:0.75rem; color:var(--dim); margin-top:4rem;">
+    Manual work scales cost. Systems scale control.
+  </p>
 
   <!-- Footer Placeholder -->
   <div id="footer-placeholder"></div>
 
-  <!-- Load Components & Scripts -->
   <script>
-    // =============================================
-    // BLOG FETCHING LOGIC
-    // =============================================
+    // Load Navigation and Initialize Interactions
+    fetch('/nav.html')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+
+        const nav = doc.querySelector('nav');
+        const navOverlay = doc.querySelector('.nav-overlay');
+        const footer = doc.querySelector('footer');
+        const styles = doc.querySelector('style');
+
+        if (styles) document.head.appendChild(styles);
+        if (nav) document.getElementById('navigation-placeholder').appendChild(nav);
+        if (navOverlay) document.getElementById('navigation-placeholder').appendChild(navOverlay);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+        setTimeout(() => {
+          const menuBtn = document.getElementById('menuToggle');
+          const overlay = document.getElementById('navOverlay');
+          const navBar = document.getElementById('mainNav');
+          const navLinks = document.querySelectorAll('.nav-links a, .nav-links button');
+
+          if (menuBtn && overlay) {
+            menuBtn.addEventListener('click', () => {
+              overlay.classList.toggle('active');
+              if (overlay.classList.contains('active')) {
+                menuBtn.textContent = "[ CLOSE ]";
+                document.body.style.overflow = "hidden";
+              } else {
+                menuBtn.textContent = "[ MENU ]";
+                document.body.style.overflow = "";
+              }
+            });
+
+            navLinks.forEach(link => {
+              link.addEventListener('click', () => {
+                overlay.classList.remove('active');
+                menuBtn.textContent = "[ MENU ]";
+                document.body.style.overflow = "";
+              });
+            });
+          }
+
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+              navBar.classList.add('scrolled');
+            } else {
+              navBar.classList.remove('scrolled');
+            }
+          });
+
+          // Set Active Link State
+          function setActiveState() {
+            const currentPath = window.location.pathname;
+            const currentHash = window.location.hash;
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+              const href = link.getAttribute('href');
+              link.classList.remove('active');
+
+              if (href) {
+                if (href === currentPath || href === currentHash || (href !== '#' && currentPath.endsWith(href))) {
+                  link.classList.add('active');
+                }
+                if ((currentPath === '/' || currentPath === '/index.html') && (href === '/' || href === '/index.html' || href === '#home')) {
+                  link.classList.add('active');
+                }
+              }
+            });
+          }
+          
+          setActiveState();
+          window.addEventListener('hashchange', setActiveState);
+
+        }, 100);
+      })
+      .catch(err => console.error('Error loading components:', err));
     
-    // TODO: REPLACE WITH YOUR ACTUAL CLOUDFLARED URL
     const BACKEND_URL = 'https://blogaura.navaura.in/';
     
-    /**
-     * Fetch and display blogs
-     */
     async function loadBlogs() {
       const blogList = document.getElementById('blog-list');
       
       try {
-        // Fetch blogs from API
         const response = await fetch(`${BACKEND_URL}/api/blogs`);
         
         if (!response.ok) {
@@ -778,24 +693,20 @@ Manual work scales cost. Systems scale control.
         const data = await response.json();
         const blogs = data.blogs || [];
         
-        // Handle empty state
         if (blogs.length === 0) {
           blogList.innerHTML = '<p class="blog-loading">No posts yet. Check back soon.</p>';
           return;
         }
         
-        // Clear loading message
         blogList.innerHTML = '';
         blogList.className = 'blog-grid reveal';
         
-        // Render each blog
         blogs.forEach((blog, index) => {
           const blogCard = createBlogCard(blog);
           blogCard.style.transitionDelay = `${index * 0.1}s`;
           blogList.appendChild(blogCard);
         });
         
-        // Trigger reveal animation
         setTimeout(() => {
           blogList.classList.add('active');
         }, 100);
@@ -806,15 +717,11 @@ Manual work scales cost. Systems scale control.
       }
     }
     
-    /**
-     * Create a blog card element
-     */
     function createBlogCard(blog) {
       const blogCard = document.createElement('a');
       blogCard.href = `/blog.html?slug=${blog.slug}`;
       blogCard.className = 'blog-card';
       
-      // Format the date
       const createdDate = new Date(blog.created_at);
       const formattedDate = createdDate.toLocaleDateString('en-US', {
         year: 'numeric',
@@ -838,9 +745,6 @@ Manual work scales cost. Systems scale control.
       return blogCard;
     }
     
-    /**
-     * Show error message
-     */
     function showBlogError(container, message) {
       container.innerHTML = `
         <div class="blog-error">
@@ -852,18 +756,12 @@ Manual work scales cost. Systems scale control.
       `;
     }
     
-    /**
-     * Escape HTML to prevent XSS
-     */
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     }
 
-    // =============================================
-    // ORIGINAL REVEAL ANIMATION OBSERVER
-    // =============================================
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px"
@@ -880,74 +778,7 @@ Manual work scales cost. Systems scale control.
     document.querySelectorAll('.reveal').forEach(el => {
       observer.observe(el);
     });
-
-    // =============================================
-    // LOAD NAVIGATION AND INITIALIZE
-    // =============================================
-    fetch('./nav.html')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-
-        // Extract components
-        const nav = doc.querySelector('nav');
-        const navOverlay = doc.querySelector('.nav-overlay');
-        const footer = doc.querySelector('footer');
-        const styles = doc.querySelector('style');
-
-        // Inject components
-        if (styles) document.head.appendChild(styles);
-        if (nav) document.getElementById('navigation-placeholder').appendChild(nav);
-        if (navOverlay) document.getElementById('navigation-placeholder').appendChild(navOverlay);
-        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
-
-        // Re-initialize Menu Scripts (Wait for DOM update)
-        setTimeout(() => {
-          const menuBtn = document.getElementById('menuToggle');
-          const overlay = document.getElementById('navOverlay');
-          const navBar = document.getElementById('mainNav');
-          const navLinks = document.querySelectorAll('.nav-links a');
-
-          // Menu Toggle Logic
-          if (menuBtn && overlay) {
-            menuBtn.addEventListener('click', () => {
-              overlay.classList.toggle('active');
-              if (overlay.classList.contains('active')) {
-                menuBtn.textContent = "[ CLOSE ]";
-                document.body.style.overflow = "hidden";
-              } else {
-                menuBtn.textContent = "[ MENU ]";
-                document.body.style.overflow = "";
-              }
-            });
-
-            // Close menu on link click
-            navLinks.forEach(link => {
-              link.addEventListener('click', () => {
-                overlay.classList.remove('active');
-                menuBtn.textContent = "[ MENU ]";
-                document.body.style.overflow = "";
-              });
-            });
-          }
-
-          // Scroll Logic (Glassmorphism effect)
-          window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-              navBar.classList.add('scrolled');
-            } else {
-              navBar.classList.remove('scrolled');
-            }
-          });
-
-        }, 100);
-      })
-      .catch(err => console.error('Error loading components:', err));
     
-    // =============================================
-    // LOAD BLOGS ON PAGE LOAD
-    // =============================================
     loadBlogs();
   </script>
   <script src="/chatui.js"></script>
