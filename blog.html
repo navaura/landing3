@@ -309,6 +309,118 @@
             color: rgba(255, 255, 255, 0.95);
         }
         
+        .content h4 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin: 2rem 0 1rem 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Bold and Italic */
+        .content strong, .content b {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .content em, .content i {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Lists */
+        .content ul, .content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .content ul {
+            list-style-type: disc;
+        }
+        
+        .content ol {
+            list-style-type: decimal;
+        }
+        
+        .content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+        
+        .content li::marker {
+            color: var(--dim);
+        }
+        
+        /* Blockquotes */
+        .content blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0 4px 4px 0;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .content blockquote p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .content blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Inline Code */
+        .content code {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9em;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        /* Code Blocks */
+        .content pre {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: inherit;
+        }
+        
+        /* Links */
+        .content a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .content a:hover {
+            color: #fff;
+            text-decoration-color: #fff;
+        }
+        
+        /* Horizontal Rule */
+        .content hr {
+            margin: 3rem 0;
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+        
         /* --- KEYWORDS --- */
         .keywords {
             margin-top: 4rem;
@@ -512,23 +624,137 @@
         // INDIVIDUAL BLOG FUNCTIONALITY
         // =============================================
         function formatContent(content) {
-            // Convert plain text paragraphs to HTML
-            let formatted = content.split('\n\n').map(para => {
-                para = para.trim();
-                if (para.startsWith('## ')) {
-                    // H2 heading
-                    return `<h2>${para.substring(3)}</h2>`;
-                } else if (para.startsWith('### ')) {
-                    // H3 heading
-                    return `<h3>${para.substring(4)}</h3>`;
-                } else if (para.length > 0) {
-                    // Regular paragraph
-                    return `<p>${para}</p>`;
-                }
-                return '';
-            }).join('\n');
+            // Split content into paragraphs
+            let paragraphs = content.split('\n\n');
+            let formatted = [];
+            let inCodeBlock = false;
+            let codeBlockContent = [];
+            let inList = false;
+            let listItems = [];
+            let listType = null;
             
-            return formatted;
+            for (let para of paragraphs) {
+                para = para.trim();
+                
+                if (!para) continue;
+                
+                // Handle code blocks
+                if (para.startsWith('```')) {
+                    if (inCodeBlock) {
+                        // End code block
+                        formatted.push(`<pre><code>${codeBlockContent.join('\n')}</code></pre>`);
+                        codeBlockContent = [];
+                        inCodeBlock = false;
+                    } else {
+                        // Start code block
+                        inCodeBlock = true;
+                        // Extract language if present (e.g., ```javascript)
+                        const lang = para.substring(3).trim();
+                    }
+                    continue;
+                }
+                
+                if (inCodeBlock) {
+                    codeBlockContent.push(escapeHtml(para));
+                    continue;
+                }
+                
+                // Handle lists
+                const ulMatch = para.match(/^[•\-\*]\s+(.+)$/);
+                const olMatch = para.match(/^\d+\.\s+(.+)$/);
+                
+                if (ulMatch || olMatch) {
+                    const currentListType = ulMatch ? 'ul' : 'ol';
+                    const itemContent = ulMatch ? ulMatch[1] : olMatch[1];
+                    
+                    if (!inList) {
+                        inList = true;
+                        listType = currentListType;
+                    } else if (listType !== currentListType) {
+                        // Close previous list and start new one
+                        formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
+                        listItems = [];
+                        listType = currentListType;
+                    }
+                    
+                    listItems.push(itemContent);
+                    continue;
+                } else if (inList) {
+                    // Close the list
+                    formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
+                    listItems = [];
+                    inList = false;
+                    listType = null;
+                }
+                
+                // Handle headings
+                if (para.startsWith('#### ')) {
+                    formatted.push(`<h4>${formatInlineMarkdown(para.substring(5))}</h4>`);
+                } else if (para.startsWith('### ')) {
+                    formatted.push(`<h3>${formatInlineMarkdown(para.substring(4))}</h3>`);
+                } else if (para.startsWith('## ')) {
+                    formatted.push(`<h2>${formatInlineMarkdown(para.substring(3))}</h2>`);
+                } else if (para.startsWith('# ')) {
+                    formatted.push(`<h2>${formatInlineMarkdown(para.substring(2))}</h2>`);
+                }
+                // Handle blockquotes
+                else if (para.startsWith('> ')) {
+                    formatted.push(`<blockquote><p>${formatInlineMarkdown(para.substring(2))}</p></blockquote>`);
+                }
+                // Handle horizontal rules
+                else if (para === '---' || para === '***' || para === '___') {
+                    formatted.push('<hr>');
+                }
+                // Regular paragraph
+                else {
+                    formatted.push(`<p>${formatInlineMarkdown(para)}</p>`);
+                }
+            }
+            
+            // Close any remaining list
+            if (inList) {
+                formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
+            }
+            
+            // Close any remaining code block
+            if (inCodeBlock) {
+                formatted.push(`<pre><code>${codeBlockContent.join('\n')}</code></pre>`);
+            }
+            
+            return formatted.join('\n');
+        }
+        
+        function formatInlineMarkdown(text) {
+            // Handle inline code first (to avoid processing markdown inside code)
+            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // Handle bold and italic combinations
+            text = text.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+            text = text.replace(/___([^_]+)___/g, '<strong><em>$1</em></strong>');
+            
+            // Handle bold
+            text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+            
+            // Handle italic
+            text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
+            
+            // Handle links [text](url)
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+            
+            return text;
+        }
+        
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
         }
         
         function updateSEOTags(blog) {
