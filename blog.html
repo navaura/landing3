@@ -12,16 +12,17 @@
     
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta id="og-title" property="og:title" content="">
-    <meta id="og-description" property="og:description" content="">
-    <meta id="og-image" property="og:image" content="">
-    <meta id="og-url" property="og:url" content="">
+    <meta property="og:site_name" content="NAVAURA™ ARCTIQ">
+    <meta id="og-title" property="og:title" content="Blog | NAVAURA™ ARCTIQ">
+    <meta id="og-description" property="og:description" content="Explore our latest insights and articles">
+    <meta id="og-image" property="og:image" content="https://www.navaura.in/default-blog-image.jpg">
+    <meta id="og-url" property="og:url" content="https://www.navaura.in/blog.html">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta id="twitter-title" name="twitter:title" content="">
-    <meta id="twitter-description" name="twitter:description" content="">
-    <meta id="twitter-image" name="twitter:image" content="">
+    <meta id="twitter-title" name="twitter:title" content="Blog | NAVAURA™ ARCTIQ">
+    <meta id="twitter-description" name="twitter:description" content="Explore our latest insights and articles">
+    <meta id="twitter-image" name="twitter:image" content="https://www.navaura.in/default-blog-image.jpg">
     
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
@@ -475,7 +476,12 @@
         }
         
         function openBlog(blogSlug) {
-            window.location.href = `?slug=${blogSlug}`;
+            // Update URL to include blog slug
+            const newUrl = `${window.location.pathname}?slug=${blogSlug}`;
+            window.history.pushState({}, '', newUrl);
+            
+            // Load the blog content
+            loadBlog();
         }
         
         function showBlogList() {
@@ -488,9 +494,12 @@
             document.getElementById('more-articles-container').classList.add('hidden');
             
             // Update title and SEO
-            document.title = 'Blog | NAVAURA™ ARCTIQ';
-            document.getElementById('page-title').textContent = 'Blog | NAVAURA™ ARCTIQ';
-            document.getElementById('page-description').setAttribute('content', 'Explore our latest insights and articles');
+            updateSEOTags({
+                title: 'Blog',
+                summary: 'Explore our latest insights and articles',
+                keywords: '',
+                image: { url: 'https://www.navaura.in/default-blog-image.jpg' }
+            });
             
             // CRITICAL FIX: Reload the blog list data
             loadBlogList();
@@ -523,26 +532,30 @@
         }
         
         function updateSEOTags(blog) {
+            const fullTitle = blog.title === 'Blog' ? 'Blog | NAVAURA™ ARCTIQ' : `${blog.title} | NAVAURA™ ARCTIQ`;
+            const currentUrl = window.location.href;
+            const imageUrl = blog.image?.url || blog.image_url || 'https://www.navaura.in/default-blog-image.jpg';
+            
             // Update page title
-            document.getElementById('page-title').textContent = blog.title + ' | NAVAURA™ ARCTIQ';
-            document.title = blog.title + ' | NAVAURA™ ARCTIQ';
+            document.getElementById('page-title').textContent = fullTitle;
+            document.title = fullTitle;
             
             // Update meta description
             document.getElementById('page-description').setAttribute('content', blog.summary);
             
             // Update keywords
-            document.getElementById('page-keywords').setAttribute('content', blog.keywords);
+            document.getElementById('page-keywords').setAttribute('content', blog.keywords || '');
             
             // Update Open Graph tags
             document.getElementById('og-title').setAttribute('content', blog.title);
             document.getElementById('og-description').setAttribute('content', blog.summary);
-            document.getElementById('og-image').setAttribute('content', blog.image.url);
-            document.getElementById('og-url').setAttribute('content', window.location.href);
+            document.getElementById('og-image').setAttribute('content', imageUrl);
+            document.getElementById('og-url').setAttribute('content', currentUrl);
             
             // Update Twitter Card tags
             document.getElementById('twitter-title').setAttribute('content', blog.title);
             document.getElementById('twitter-description').setAttribute('content', blog.summary);
-            document.getElementById('twitter-image').setAttribute('content', blog.image.url);
+            document.getElementById('twitter-image').setAttribute('content', imageUrl);
         }
         
         async function loadBlog() {
@@ -642,6 +655,12 @@
                     "keywords": blog.keywords
                 };
                 
+                // Remove any existing structured data script
+                const existingScript = document.querySelector('script[type="application/ld+json"]');
+                if (existingScript) {
+                    existingScript.remove();
+                }
+                
                 const script = document.createElement('script');
                 script.type = 'application/ld+json';
                 script.text = JSON.stringify(structuredData);
@@ -682,6 +701,13 @@
                 console.error('Error loading more articles:', error);
             }
         }
+        
+        // =============================================
+        // HANDLE BROWSER NAVIGATION (Back/Forward)
+        // =============================================
+        window.addEventListener('popstate', function() {
+            loadBlog();
+        });
         
         // =============================================
         // LOAD NAVIGATION AND FOOTER
