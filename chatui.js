@@ -91,7 +91,7 @@ class NavauraChatbot {
         position: fixed;
         bottom: 24px;
         right: 24px;
-        z-index: 999999;
+        z-index: 9999999;
         font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       }
 
@@ -210,11 +210,18 @@ class NavauraChatbot {
         align-items: center;
         justify-content: center;
         transition: all 0.2s;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
 
       .navaura-chat-btn:hover {
         background: rgba(255, 255, 255, 0.05);
         border-color: rgba(255, 255, 255, 0.3);
+      }
+      
+      .navaura-chat-btn:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.1);
       }
 
       /* Messages Container */
@@ -479,6 +486,8 @@ class NavauraChatbot {
         justify-content: center;
         transition: all 0.2s;
         flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
 
       .navaura-chat-send:hover:not(:disabled) {
@@ -488,6 +497,7 @@ class NavauraChatbot {
 
       .navaura-chat-send:active:not(:disabled) {
         transform: scale(0.95);
+        background: #999999;
       }
 
       .navaura-chat-send:disabled {
@@ -525,34 +535,82 @@ class NavauraChatbot {
           bottom: 0;
           right: 0;
           left: 0;
+          z-index: 9999999;
         }
 
         .navaura-chat-window {
           width: 100%;
           height: 100vh;
+          height: 100dvh; /* Dynamic viewport height for better mobile support */
           border: none;
           border-radius: 0;
           bottom: 0;
           right: 0;
           transform: translateY(100vh);
+          max-height: -webkit-fill-available;
         }
 
         .navaura-chat-window.open {
           transform: translateY(0);
+          position: fixed;
+          top: 0;
+          left: 0;
         }
 
         .navaura-chat-header {
-          padding: 1.5rem;
+          padding: max(1.5rem, env(safe-area-inset-top) + 1rem) 1.5rem 1.5rem 1.5rem;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          backdrop-filter: blur(10px);
+          background: rgba(10, 10, 10, 0.95);
         }
 
         .navaura-chat-messages {
           padding: 1rem;
+          padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+        
+        .navaura-chat-input-area {
+          padding: 1rem;
+          padding-bottom: max(1rem, env(safe-area-inset-bottom));
         }
 
         .navaura-message-content {
-          max-width: 80%;
+          max-width: 85%;
         }
 
+        .navaura-suggestion-pill {
+          font-size: 11px;
+          padding: 8px 14px;
+        }
+      }
+      
+      /* Extra small screens */
+      @media (max-width: 414px) {
+        .navaura-chat-header {
+          padding: max(1rem, env(safe-area-inset-top) + 0.75rem) 1rem 1rem 1rem;
+        }
+        
+        .navaura-chat-header-text h3 {
+          font-size: 14px;
+        }
+        
+        .navaura-chat-header-text p {
+          font-size: 10px;
+        }
+        
+        .navaura-chat-logo {
+          width: 36px;
+          height: 36px;
+          font-size: 16px;
+        }
+        
+        .navaura-message-content {
+          font-size: 13px;
+          padding: 10px 14px;
+        }
+        
         .navaura-suggestion-pill {
           font-size: 10px;
           padding: 6px 12px;
@@ -655,12 +713,37 @@ class NavauraChatbot {
       input.style.height = 'auto';
       input.style.height = Math.min(input.scrollHeight, 120) + 'px';
     });
+    
+    // Prevent zoom on iOS when focusing input
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+      input.addEventListener('focus', () => {
+        const viewport = document.querySelector('meta[name=viewport]');
+        if (viewport) {
+          viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        }
+      });
+      
+      input.addEventListener('blur', () => {
+        const viewport = document.querySelector('meta[name=viewport]');
+        if (viewport) {
+          viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        }
+      });
+    }
   }
 
   open() {
     this.isOpen = true;
     const chatWindow = document.getElementById('navauraChatWindow');
     chatWindow.classList.add('open');
+    
+    // Prevent body scroll on mobile when chat is open
+    if (window.innerWidth <= 768) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    }
+    
     setTimeout(() => {
       document.getElementById('navauraChatInput').focus();
     }, 400);
@@ -669,6 +752,13 @@ class NavauraChatbot {
   close() {
     this.isOpen = false;
     document.getElementById('navauraChatWindow').classList.remove('open');
+    
+    // Restore body scroll on mobile
+    if (window.innerWidth <= 768) {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
   }
 
   toggleMinimize() {
