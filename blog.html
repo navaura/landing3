@@ -588,14 +588,17 @@
             }).join('');
         }
         
-        function openBlog(blogSlug) {
-            // Update URL to include blog slug
-            const newUrl = `${window.location.pathname}?slug=${blogSlug}`;
-            window.history.pushState({}, '', newUrl);
-            
-            // Load the blog content
-            loadBlog();
-        }
+function openBlog(blogSlug) {
+    // Update URL to include blog slug
+    const newUrl = `${window.location.pathname}?slug=${blogSlug}`;
+    window.history.pushState({}, '', newUrl);
+    
+    // Scroll to top before loading new blog
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Load the blog content
+    loadBlog();
+}
         
         function showBlogList() {
             // Clear URL parameter
