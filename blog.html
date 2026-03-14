@@ -5,28 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7059602797340547"
      crossorigin="anonymous"></script>
-    <!-- SEO Meta Tags - Will be updated by JavaScript -->
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- SEO Meta Tags -->
     <title id="page-title">Blog | NAVAURA™ ARCTIQ</title>
-    <meta id="page-description" name="description" content="Explore our latest insights and articles">
-    <meta id="page-keywords" name="keywords" content="">
+    <meta id="page-description" name="description" content="Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.">
+    <meta id="page-keywords" name="keywords" content="NAVAURA, ARCTIQ, blog, design, technology, culture">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    
+    <meta name="author" content="NAVAURA ARCTIQ">
+
+    <!-- Canonical URL (updated dynamically per post) -->
+    <link id="canonical-url" rel="canonical" href="https://www.navaura.in/blog.html">
+
     <!-- Open Graph -->
-    <meta property="og:type" content="article">
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="NAVAURA™ ARCTIQ">
     <meta id="og-title" property="og:title" content="Blog | NAVAURA™ ARCTIQ">
-    <meta id="og-description" property="og:description" content="Explore our latest insights and articles">
+    <meta id="og-description" property="og:description" content="Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.">
     <meta id="og-image" property="og:image" content="https://www.navaura.in/default-blog-image.jpg">
     <meta id="og-url" property="og:url" content="https://www.navaura.in/blog.html">
-    
+    <meta id="og-type" property="og:type" content="website">
+    <meta id="article-published" property="article:published_time" content="">
+    <meta id="article-modified" property="article:modified_time" content="">
+    <meta id="article-tag" property="article:tag" content="">
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@navaura">
     <meta id="twitter-title" name="twitter:title" content="Blog | NAVAURA™ ARCTIQ">
-    <meta id="twitter-description" name="twitter:description" content="Explore our latest insights and articles">
+    <meta id="twitter-description" name="twitter:description" content="Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.">
     <meta id="twitter-image" name="twitter:image" content="https://www.navaura.in/default-blog-image.jpg">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+
+    <!-- Default BreadcrumbList schema for blog listing page -->
+    <script type="application/ld+json" id="default-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "NAVAURA™ ARCTIQ Blog",
+      "description": "Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.",
+      "url": "https://www.navaura.in/blog.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NAVAURA ARCTIQ",
+        "url": "https://www.navaura.in",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.navaura.in/logo.png"
+        }
+      }
+    }
+    </script>
+
     <style>
         /* --- CONFIGURATION --- */
         :root {
@@ -38,13 +72,13 @@
             --nav-height: 90px;
             --nav-height-mobile: 70px;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         html, body {
             background-color: var(--bg);
             color: var(--fg);
@@ -52,22 +86,22 @@
             width: 100%;
             min-height: 100vh;
         }
-        
+
         /* Hide Scrollbar */
         html { scrollbar-width: none; -ms-overflow-style: none; }
         html::-webkit-scrollbar { display: none; }
         body { scrollbar-width: none; -ms-overflow-style: none; }
         body::-webkit-scrollbar { display: none; }
-        
+
         a { text-decoration: none; color: inherit; }
-        
+
         /* --- MAIN CONTENT --- */
         main {
             padding-top: var(--nav-height);
             min-height: 100vh;
             position: relative;
         }
-        
+
         /* Grid Background */
         .bg-grid {
             position: fixed;
@@ -75,7 +109,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 100px 100px;
@@ -83,7 +117,7 @@
             pointer-events: none;
             z-index: -1;
         }
-        
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -91,14 +125,14 @@
             position: relative;
             z-index: 1;
         }
-        
+
         /* --- LOADING & ERROR --- */
         .loading, .error {
             text-align: center;
             padding: 6rem 2rem;
             color: var(--dim);
         }
-        
+
         .error {
             background: rgba(255, 193, 7, 0.05);
             border: 1px solid rgba(255, 193, 7, 0.2);
@@ -107,48 +141,48 @@
             max-width: 600px;
             margin: 4rem auto;
         }
-        
+
         .error h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: #fff;
         }
-        
+
         .error a {
             color: #ffc107;
             text-decoration: underline;
         }
-        
+
         /* --- BLOG LIST SECTION --- */
         .blog-list-section {
             margin-bottom: 4rem;
         }
-        
+
         .blog-list-header {
             text-align: center;
             margin-bottom: 3rem;
         }
-        
+
         .blog-list-header h2 {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 600;
             margin-bottom: 1rem;
             letter-spacing: -0.02em;
         }
-        
+
         .blog-list-header p {
             color: var(--dim);
             font-size: 1.1rem;
             font-weight: 300;
         }
-        
+
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
-        
+
         .blog-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
@@ -159,27 +193,27 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .blog-card:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-4px);
         }
-        
+
         .blog-card-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
             border-bottom: 1px solid var(--border);
         }
-        
+
         .blog-card-content {
             padding: 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-        
+
         .blog-card-date {
             font-family: 'Space Mono', monospace;
             font-size: 0.7rem;
@@ -188,7 +222,7 @@
             color: var(--dim);
             margin-bottom: 0.75rem;
         }
-        
+
         .blog-card-title {
             font-size: 1.3rem;
             font-weight: 600;
@@ -196,7 +230,7 @@
             line-height: 1.3;
             color: #fff;
         }
-        
+
         .blog-card-summary {
             font-size: 0.95rem;
             color: var(--dim);
@@ -204,13 +238,13 @@
             margin-bottom: 1rem;
             flex: 1;
         }
-        
+
         .blog-card-keywords {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-        
+
         .blog-card-keyword {
             font-family: 'Space Mono', monospace;
             font-size: 0.7rem;
@@ -219,14 +253,14 @@
             border: 1px solid var(--border);
             border-radius: 3px;
         }
-        
+
         /* --- ARTICLE HEADER --- */
         header {
             margin-bottom: 3rem;
             padding-bottom: 2rem;
             border-bottom: 1px solid var(--border);
         }
-        
+
         .back-to-list {
             display: inline-flex;
             align-items: center;
@@ -242,13 +276,13 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .back-to-list:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.3);
             color: #fff;
         }
-        
+
         .meta {
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
@@ -257,7 +291,7 @@
             color: var(--dim);
             margin-bottom: 2rem;
         }
-        
+
         h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 600;
@@ -265,14 +299,14 @@
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
         }
-        
+
         .summary {
             font-size: 1.2rem;
             line-height: 1.6;
             color: var(--dim);
             font-weight: 300;
         }
-        
+
         /* --- FEATURED IMAGE --- */
         .featured-image {
             width: 100%;
@@ -281,19 +315,19 @@
             margin-bottom: 3rem;
             border: 1px solid var(--border);
         }
-        
+
         /* --- ARTICLE CONTENT --- */
         .content {
             font-size: 1.1rem;
             line-height: 1.8;
             font-weight: 300;
         }
-        
+
         .content p {
             margin-bottom: 1.5rem;
             color: rgba(255, 255, 255, 0.85);
         }
-        
+
         .content h2 {
             font-size: 2rem;
             font-weight: 600;
@@ -301,7 +335,7 @@
             letter-spacing: -0.02em;
             color: #fff;
         }
-        
+
         .content h3 {
             font-size: 1.5rem;
             font-weight: 500;
@@ -309,49 +343,49 @@
             letter-spacing: -0.01em;
             color: rgba(255, 255, 255, 0.95);
         }
-        
+
         .content h4 {
             font-size: 1.25rem;
             font-weight: 500;
             margin: 2rem 0 1rem 0;
             color: rgba(255, 255, 255, 0.9);
         }
-        
+
         /* Bold and Italic */
         .content strong, .content b {
             font-weight: 600;
             color: #fff;
         }
-        
+
         .content em, .content i {
             font-style: italic;
             color: rgba(255, 255, 255, 0.9);
         }
-        
+
         /* Lists */
         .content ul, .content ol {
             margin: 1.5rem 0;
             padding-left: 2rem;
             color: rgba(255, 255, 255, 0.85);
         }
-        
+
         .content ul {
             list-style-type: disc;
         }
-        
+
         .content ol {
             list-style-type: decimal;
         }
-        
+
         .content li {
             margin-bottom: 0.75rem;
             line-height: 1.8;
         }
-        
+
         .content li::marker {
             color: var(--dim);
         }
-        
+
         /* Blockquotes */
         .content blockquote {
             margin: 2rem 0;
@@ -362,15 +396,15 @@
             font-style: italic;
             color: rgba(255, 255, 255, 0.8);
         }
-        
+
         .content blockquote p {
             margin-bottom: 0.5rem;
         }
-        
+
         .content blockquote p:last-child {
             margin-bottom: 0;
         }
-        
+
         /* Inline Code */
         .content code {
             font-family: 'Space Mono', monospace;
@@ -381,7 +415,7 @@
             border-radius: 3px;
             color: rgba(255, 255, 255, 0.95);
         }
-        
+
         /* Code Blocks */
         .content pre {
             margin: 2rem 0;
@@ -394,14 +428,14 @@
             font-size: 0.9rem;
             line-height: 1.6;
         }
-        
+
         .content pre code {
             background: none;
             border: none;
             padding: 0;
             font-size: inherit;
         }
-        
+
         /* Links */
         .content a {
             color: rgba(255, 255, 255, 0.9);
@@ -409,19 +443,19 @@
             text-decoration-color: rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
         }
-        
+
         .content a:hover {
             color: #fff;
             text-decoration-color: #fff;
         }
-        
+
         /* Horizontal Rule */
         .content hr {
             margin: 3rem 0;
             border: none;
             border-top: 1px solid var(--border);
         }
-        
+
         /* --- KEYWORDS --- */
         .keywords {
             margin-top: 4rem;
@@ -430,7 +464,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
         }
-        
+
         .keywords strong {
             display: block;
             margin-bottom: 1rem;
@@ -440,7 +474,7 @@
             letter-spacing: 1px;
             color: var(--dim);
         }
-        
+
         .keywords span {
             display: inline-block;
             background: rgba(255, 255, 255, 0.05);
@@ -452,12 +486,12 @@
             font-family: 'Space Mono', monospace;
             transition: all 0.3s ease;
         }
-        
+
         .keywords span:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.3);
         }
-        
+
         /* --- ATTRIBUTION --- */
         .attribution {
             margin-top: 3rem;
@@ -467,7 +501,7 @@
             color: var(--dim);
             text-align: center;
         }
-        
+
         /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             main { padding-top: var(--nav-height-mobile); }
@@ -479,17 +513,17 @@
             .content h2 { font-size: 1.5rem; }
             .content h3 { font-size: 1.25rem; }
         }
-        
+
         /* --- HIDE/SHOW --- */
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
     <div class="bg-grid"></div>
-    
+
     <!-- Navigation Placeholder -->
     <div id="navigation-placeholder"></div>
-    
+
     <main>
         <div class="container">
             <!-- BLOG LIST SECTION (Shows when no blog is selected OR after reading a blog) -->
@@ -502,10 +536,10 @@
                     <div class="loading">Loading blogs...</div>
                 </div>
             </div>
-            
+
             <!-- INDIVIDUAL BLOG CONTENT (Shows when a blog is selected) -->
             <div id="blog-content" class="hidden"></div>
-            
+
             <!-- MORE ARTICLES SECTION (Shows after reading a blog) -->
             <div id="more-articles-container" class="blog-list-section hidden">
                 <div class="blog-list-header">
@@ -516,34 +550,36 @@
             </div>
         </div>
     </main>
-    
+
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
-    
+
     <script>
         // =============================================
         // CONFIGURATION
         // =============================================
         const BACKEND_URL = 'https://blogaura.navaura.in';
-        
+        const SITE_URL = 'https://www.navaura.in';
+
         // =============================================
         // BLOG LIST FUNCTIONALITY
         // =============================================
         async function loadBlogList() {
             const blogGrid = document.getElementById('blog-grid');
-            
-            // Show loading state
+
             blogGrid.innerHTML = '<div class="loading">Loading blogs...</div>';
-            
+
             try {
                 const response = await fetch(`${BACKEND_URL}/api/blogs`);
                 const data = await response.json();
-                
-                // API returns {blogs: [...], count: ...}
+
                 const blogs = data.blogs || [];
-                
+
                 renderBlogGrid(blogs, 'blog-grid');
-                
+
+                // Add BlogList schema for the listing page
+                injectBlogListSchema(blogs);
+
             } catch (error) {
                 console.error('Error loading blog list:', error);
                 blogGrid.innerHTML = `
@@ -554,81 +590,108 @@
                 `;
             }
         }
-        
+
+        function injectBlogListSchema(blogs) {
+            const itemListElements = blogs.slice(0, 10).map((blog, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "url": `${SITE_URL}/blog.html?slug=${blog.slug}`,
+                "name": blog.title
+            }));
+
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "Blog",
+                "name": "NAVAURA™ ARCTIQ Blog",
+                "description": "Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.",
+                "url": `${SITE_URL}/blog.html`,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "NAVAURA ARCTIQ",
+                    "url": SITE_URL,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${SITE_URL}/logo.png`
+                    }
+                },
+                "blogPost": itemListElements
+            };
+
+            updateSchema(schema, 'default-schema');
+        }
+
         function renderBlogGrid(blogs, containerId) {
             const container = document.getElementById(containerId);
-            
+
             if (blogs.length === 0) {
                 container.innerHTML = '<p class="loading">No blogs available yet.</p>';
                 return;
             }
-            
+
             container.innerHTML = blogs.map(blog => {
                 const date = new Date(blog.created_at).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric'
                 });
-                
+
                 const keywords = blog.keywords.split(',').slice(0, 3);
-                
+
+                // Use clean URL if possible, fall back to ?slug=
+                const blogUrl = `${window.location.pathname}?slug=${blog.slug}`;
+
                 return `
-                    <div class="blog-card" onclick="openBlog('${blog.slug}')">
-                        <img src="${blog.image_url}" alt="${blog.title}" class="blog-card-image" loading="lazy">
+                    <article class="blog-card" onclick="openBlog('${blog.slug}')" role="article">
+                        <img src="${blog.image_url}" alt="${escapeAttr(blog.title)}" class="blog-card-image" loading="lazy" width="400" height="200">
                         <div class="blog-card-content">
-                            <div class="blog-card-date">${date}</div>
+                            <div class="blog-card-date">
+                                <time datetime="${blog.created_at}">${date}</time>
+                            </div>
                             <h3 class="blog-card-title">${blog.title}</h3>
                             <p class="blog-card-summary">${blog.summary}</p>
-                            <div class="blog-card-keywords">
+                            <div class="blog-card-keywords" aria-label="Topics">
                                 ${keywords.map(kw => `<span class="blog-card-keyword">${kw.trim()}</span>`).join('')}
                             </div>
                         </div>
-                    </div>
+                    </article>
                 `;
             }).join('');
         }
-        
-function openBlog(blogSlug) {
-    // Update URL to include blog slug
-    const newUrl = `${window.location.pathname}?slug=${blogSlug}`;
-    window.history.pushState({}, '', newUrl);
-    
-    // Scroll to top before loading new blog
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Load the blog content
-    loadBlog();
-}
-        
+
+        function openBlog(blogSlug) {
+            const newUrl = `${window.location.pathname}?slug=${blogSlug}`;
+            window.history.pushState({ slug: blogSlug }, '', newUrl);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            loadBlog();
+        }
+
         function showBlogList() {
-            // Clear URL parameter
             window.history.pushState({}, '', window.location.pathname);
-            
-            // Show blog list, hide blog content
+
             document.getElementById('blog-list-container').classList.remove('hidden');
             document.getElementById('blog-content').classList.add('hidden');
             document.getElementById('more-articles-container').classList.add('hidden');
-            
-            // Update title and SEO
+
             updateSEOTags({
                 title: 'Blog',
-                summary: 'Explore our latest insights and articles',
-                keywords: '',
-                image: { url: 'https://www.navaura.in/default-blog-image.jpg' }
+                summary: 'Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.',
+                keywords: 'NAVAURA, ARCTIQ, blog, design, technology, culture',
+                image: { url: `${SITE_URL}/default-blog-image.jpg` },
+                created_at: null,
+                isListPage: true
             });
-            
-            // CRITICAL FIX: Reload the blog list data
+
             loadBlogList();
-            
-            // Scroll to top
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
+
         // =============================================
         // INDIVIDUAL BLOG FUNCTIONALITY
         // =============================================
         function formatContent(content) {
-            // Split content into paragraphs
             let paragraphs = content.split('\n\n');
             let formatted = [];
             let inCodeBlock = false;
@@ -636,61 +699,55 @@ function openBlog(blogSlug) {
             let inList = false;
             let listItems = [];
             let listType = null;
-            
+
             for (let para of paragraphs) {
                 para = para.trim();
-                
+
                 if (!para) continue;
-                
+
                 // Handle code blocks
                 if (para.startsWith('```')) {
                     if (inCodeBlock) {
-                        // End code block
                         formatted.push(`<pre><code>${codeBlockContent.join('\n')}</code></pre>`);
                         codeBlockContent = [];
                         inCodeBlock = false;
                     } else {
-                        // Start code block
                         inCodeBlock = true;
-                        // Extract language if present (e.g., ```javascript)
-                        const lang = para.substring(3).trim();
                     }
                     continue;
                 }
-                
+
                 if (inCodeBlock) {
                     codeBlockContent.push(escapeHtml(para));
                     continue;
                 }
-                
+
                 // Handle lists
                 const ulMatch = para.match(/^[•\-\*]\s+(.+)$/);
                 const olMatch = para.match(/^\d+\.\s+(.+)$/);
-                
+
                 if (ulMatch || olMatch) {
                     const currentListType = ulMatch ? 'ul' : 'ol';
                     const itemContent = ulMatch ? ulMatch[1] : olMatch[1];
-                    
+
                     if (!inList) {
                         inList = true;
                         listType = currentListType;
                     } else if (listType !== currentListType) {
-                        // Close previous list and start new one
                         formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
                         listItems = [];
                         listType = currentListType;
                     }
-                    
+
                     listItems.push(itemContent);
                     continue;
                 } else if (inList) {
-                    // Close the list
                     formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
                     listItems = [];
                     inList = false;
                     listType = null;
                 }
-                
+
                 // Handle headings
                 if (para.startsWith('#### ')) {
                     formatted.push(`<h4>${formatInlineMarkdown(para.substring(5))}</h4>`);
@@ -700,124 +757,134 @@ function openBlog(blogSlug) {
                     formatted.push(`<h2>${formatInlineMarkdown(para.substring(3))}</h2>`);
                 } else if (para.startsWith('# ')) {
                     formatted.push(`<h2>${formatInlineMarkdown(para.substring(2))}</h2>`);
-                }
-                // Handle blockquotes
-                else if (para.startsWith('> ')) {
+                } else if (para.startsWith('> ')) {
                     formatted.push(`<blockquote><p>${formatInlineMarkdown(para.substring(2))}</p></blockquote>`);
-                }
-                // Handle horizontal rules
-                else if (para === '---' || para === '***' || para === '___') {
+                } else if (para === '---' || para === '***' || para === '___') {
                     formatted.push('<hr>');
-                }
-                // Regular paragraph
-                else {
+                } else {
                     formatted.push(`<p>${formatInlineMarkdown(para)}</p>`);
                 }
             }
-            
-            // Close any remaining list
+
             if (inList) {
                 formatted.push(`<${listType}>${listItems.map(item => `<li>${formatInlineMarkdown(item)}</li>`).join('')}</${listType}>`);
             }
-            
-            // Close any remaining code block
+
             if (inCodeBlock) {
                 formatted.push(`<pre><code>${codeBlockContent.join('\n')}</code></pre>`);
             }
-            
+
             return formatted.join('\n');
         }
-        
+
         function formatInlineMarkdown(text) {
-            // Handle inline code first (to avoid processing markdown inside code)
             text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-            
-            // Handle bold and italic combinations
             text = text.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
             text = text.replace(/___([^_]+)___/g, '<strong><em>$1</em></strong>');
-            
-            // Handle bold
             text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
-            
-            // Handle italic
             text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
             text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-            
-            // Handle links [text](url)
             text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-            
             return text;
         }
-        
+
         function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
             return text.replace(/[&<>"']/g, m => map[m]);
         }
-        
+
+        function escapeAttr(text) {
+            return text.replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
         function updateSEOTags(blog) {
-            const fullTitle = blog.title === 'Blog' ? 'Blog | NAVAURA™ ARCTIQ' : `${blog.title} | NAVAURA™ ARCTIQ`;
+            const isListPage = blog.isListPage || false;
+            const fullTitle = (blog.title === 'Blog' || isListPage)
+                ? 'Blog | NAVAURA™ ARCTIQ'
+                : `${blog.title} | NAVAURA™ ARCTIQ`;
             const currentUrl = window.location.href;
-            const imageUrl = blog.image?.url || blog.image_url || 'https://www.navaura.in/default-blog-image.jpg';
-            
-            // Update page title
+            const imageUrl = blog.image?.url || blog.image_url || `${SITE_URL}/default-blog-image.jpg`;
+            const description = blog.summary || 'Read the latest articles from NAVAURA™ ARCTIQ on design, tech, and culture.';
+
+            // Title & description
             document.getElementById('page-title').textContent = fullTitle;
             document.title = fullTitle;
-            
-            // Update meta description
-            document.getElementById('page-description').setAttribute('content', blog.summary);
-            
-            // Update keywords
+            document.getElementById('page-description').setAttribute('content', description);
             document.getElementById('page-keywords').setAttribute('content', blog.keywords || '');
-            
-            // Update Open Graph tags
-            document.getElementById('og-title').setAttribute('content', blog.title);
-            document.getElementById('og-description').setAttribute('content', blog.summary);
+
+            // Canonical URL
+            document.getElementById('canonical-url').setAttribute('href', currentUrl);
+
+            // Open Graph
+            document.getElementById('og-title').setAttribute('content', blog.title || 'Blog');
+            document.getElementById('og-description').setAttribute('content', description);
             document.getElementById('og-image').setAttribute('content', imageUrl);
             document.getElementById('og-url').setAttribute('content', currentUrl);
-            
-            // Update Twitter Card tags
-            document.getElementById('twitter-title').setAttribute('content', blog.title);
-            document.getElementById('twitter-description').setAttribute('content', blog.summary);
+            document.getElementById('og-type').setAttribute('content', isListPage ? 'website' : 'article');
+
+            // Article-specific OG tags
+            if (!isListPage && blog.created_at) {
+                document.getElementById('article-published').setAttribute('content', blog.created_at);
+                document.getElementById('article-modified').setAttribute('content', blog.updated_at || blog.created_at);
+                document.getElementById('article-tag').setAttribute('content', blog.keywords || '');
+            } else {
+                document.getElementById('article-published').setAttribute('content', '');
+                document.getElementById('article-modified').setAttribute('content', '');
+                document.getElementById('article-tag').setAttribute('content', '');
+            }
+
+            // Twitter Card
+            document.getElementById('twitter-title').setAttribute('content', blog.title || 'Blog');
+            document.getElementById('twitter-description').setAttribute('content', description);
             document.getElementById('twitter-image').setAttribute('content', imageUrl);
         }
-        
+
+        function updateSchema(data, existingId) {
+            const existingScript = existingId
+                ? document.getElementById(existingId)
+                : document.querySelector('script[type="application/ld+json"][data-blog]');
+
+            if (existingScript) {
+                existingScript.text = JSON.stringify(data);
+            } else {
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.setAttribute('data-blog', 'true');
+                script.text = JSON.stringify(data);
+                document.head.appendChild(script);
+            }
+        }
+
         async function loadBlog() {
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('slug');
             const blogContent = document.getElementById('blog-content');
-            
+
             if (!slug) {
-                // No slug - show blog list
                 document.getElementById('blog-list-container').classList.remove('hidden');
                 blogContent.classList.add('hidden');
                 document.getElementById('more-articles-container').classList.add('hidden');
                 loadBlogList();
                 return;
             }
-            
-            // Hide blog list, show blog content
+
             document.getElementById('blog-list-container').classList.add('hidden');
             blogContent.classList.remove('hidden');
-            
+            document.getElementById('more-articles-container').classList.add('hidden');
+
             try {
                 const response = await fetch(`${BACKEND_URL}/api/blog/${slug}`);
-                
+
                 if (!response.ok) {
                     throw new Error('Blog not found');
                 }
-                
+
                 const blog = await response.json();
-                
-                // Update SEO tags
+
+                // Update all SEO tags
                 updateSEOTags(blog);
-                
+
                 // Format date
                 const createdDate = new Date(blog.created_at);
                 const formattedDate = createdDate.toLocaleDateString('en-US', {
@@ -825,16 +892,100 @@ function openBlog(blogSlug) {
                     month: 'long',
                     day: 'numeric'
                 });
-                
-                // Format content with headings
+
                 const formattedContent = formatContent(blog.content);
-                
+
+                // Word count for schema
+                const wordCount = blog.content.trim().split(/\s+/).length;
+
+                // Breadcrumb schema
+                const breadcrumbSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Home",
+                            "item": SITE_URL
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Blog",
+                            "item": `${SITE_URL}/blog.html`
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": blog.title,
+                            "item": window.location.href
+                        }
+                    ]
+                };
+
+                // BlogPosting schema
+                const blogPostingSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": blog.title,
+                    "description": blog.summary,
+                    "image": {
+                        "@type": "ImageObject",
+                        "url": blog.image.url
+                    },
+                    "url": window.location.href,
+                    "datePublished": blog.created_at,
+                    "dateModified": blog.updated_at || blog.created_at,
+                    "wordCount": wordCount,
+                    "articleBody": blog.content.substring(0, 500),
+                    "inLanguage": "en-US",
+                    "author": {
+                        "@type": "Organization",
+                        "name": "NAVAURA ARCTIQ",
+                        "url": SITE_URL
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "NAVAURA ARCTIQ",
+                        "url": SITE_URL,
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": `${SITE_URL}/logo.png`
+                        }
+                    },
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": window.location.href
+                    },
+                    "keywords": blog.keywords,
+                    "isPartOf": {
+                        "@type": "Blog",
+                        "name": "NAVAURA™ ARCTIQ Blog",
+                        "url": `${SITE_URL}/blog.html`
+                    }
+                };
+
+                // Inject both schemas
+                updateSchema(breadcrumbSchema, 'default-schema');
+
+                const existingBlogScript = document.querySelector('script[data-blog="true"]');
+                if (existingBlogScript) {
+                    existingBlogScript.text = JSON.stringify(blogPostingSchema);
+                } else {
+                    const s = document.createElement('script');
+                    s.type = 'application/ld+json';
+                    s.setAttribute('data-blog', 'true');
+                    s.text = JSON.stringify(blogPostingSchema);
+                    document.head.appendChild(s);
+                }
+
                 // Render blog
                 blogContent.innerHTML = `
-                    <a href="#" onclick="showBlogList(); return false;" class="back-to-list">
+                    <a href="${SITE_URL}/blog.html" onclick="showBlogList(); return false;" class="back-to-list" aria-label="Back to all articles">
                         ← Back to All Articles
                     </a>
-                    
+
                     <header>
                         <div class="meta">
                             <time datetime="${blog.created_at}">Published on ${formattedDate}</time>
@@ -842,63 +993,39 @@ function openBlog(blogSlug) {
                         <h1>${blog.title}</h1>
                         <p class="summary">${blog.summary}</p>
                     </header>
-                    
-                    <article>
-                        <img src="${blog.image.url}" alt="${blog.title}" class="featured-image" loading="lazy">
-                        
-                        <div class="content">
+
+                    <article itemscope itemtype="https://schema.org/BlogPosting">
+                        <meta itemprop="headline" content="${escapeAttr(blog.title)}">
+                        <meta itemprop="datePublished" content="${blog.created_at}">
+                        <meta itemprop="dateModified" content="${blog.updated_at || blog.created_at}">
+                        <meta itemprop="author" content="NAVAURA ARCTIQ">
+
+                        <img src="${blog.image.url}"
+                             alt="${escapeAttr(blog.title)}"
+                             class="featured-image"
+                             loading="eager"
+                             width="900"
+                             height="500"
+                             itemprop="image">
+
+                        <div class="content" itemprop="articleBody">
                             ${formattedContent}
                         </div>
-                        
-                        <div class="keywords">
+
+                        <div class="keywords" aria-label="Related topics">
                             <strong>Related Topics</strong>
                             ${blog.keywords.split(',').map(kw => `<span>${kw.trim()}</span>`).join('')}
                         </div>
-                        
+
                         <div class="attribution">
                             📸 Image: ${blog.image.attribution}
                         </div>
                     </article>
                 `;
-                
-                // Add structured data for SEO
-                const structuredData = {
-                    "@context": "https://schema.org",
-                    "@type": "BlogPosting",
-                    "headline": blog.title,
-                    "description": blog.summary,
-                    "image": blog.image.url,
-                    "datePublished": blog.created_at,
-                    "dateModified": blog.created_at,
-                    "author": {
-                        "@type": "Organization",
-                        "name": "NAVAURA ARCTIQ"
-                    },
-                    "publisher": {
-                        "@type": "Organization",
-                        "name": "NAVAURA ARCTIQ"
-                    },
-                    "mainEntityOfPage": {
-                        "@type": "WebPage",
-                        "@id": window.location.href
-                    },
-                    "keywords": blog.keywords
-                };
-                
-                // Remove any existing structured data script
-                const existingScript = document.querySelector('script[type="application/ld+json"]');
-                if (existingScript) {
-                    existingScript.remove();
-                }
-                
-                const script = document.createElement('script');
-                script.type = 'application/ld+json';
-                script.text = JSON.stringify(structuredData);
-                document.head.appendChild(script);
-                
+
                 // Load and show more articles after current blog
                 loadMoreArticles(slug);
-                
+
             } catch (error) {
                 console.error('Error loading blog:', error);
                 blogContent.innerHTML = `
@@ -910,35 +1037,33 @@ function openBlog(blogSlug) {
                 `;
             }
         }
-        
+
         async function loadMoreArticles(currentSlug) {
             try {
                 const response = await fetch(`${BACKEND_URL}/api/blogs`);
                 const data = await response.json();
-                
-                // API returns {blogs: [...], count: ...}
+
                 const blogs = data.blogs || [];
-                
-                // Filter out current blog and show others
+
                 const otherBlogs = blogs.filter(blog => blog.slug !== currentSlug).slice(0, 6);
-                
+
                 if (otherBlogs.length > 0) {
                     document.getElementById('more-articles-container').classList.remove('hidden');
                     renderBlogGrid(otherBlogs, 'more-articles-grid');
                 }
-                
+
             } catch (error) {
                 console.error('Error loading more articles:', error);
             }
         }
-        
+
         // =============================================
         // HANDLE BROWSER NAVIGATION (Back/Forward)
         // =============================================
         window.addEventListener('popstate', function() {
             loadBlog();
         });
-        
+
         // =============================================
         // LOAD NAVIGATION AND FOOTER
         // =============================================
@@ -948,26 +1073,22 @@ function openBlog(blogSlug) {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
 
-                // Extract components
                 const nav = doc.querySelector('nav');
                 const navOverlay = doc.querySelector('.nav-overlay');
                 const footer = doc.querySelector('footer');
                 const styles = doc.querySelector('style');
 
-                // Inject components
                 if (styles) document.head.appendChild(styles);
                 if (nav) document.getElementById('navigation-placeholder').appendChild(nav);
                 if (navOverlay) document.getElementById('navigation-placeholder').appendChild(navOverlay);
                 if (footer) document.getElementById('footer-placeholder').appendChild(footer);
 
-                // Re-initialize Menu Scripts (Wait for DOM update)
                 setTimeout(() => {
                     const menuBtn = document.getElementById('menuToggle');
                     const overlay = document.getElementById('navOverlay');
                     const navBar = document.getElementById('mainNav');
                     const navLinks = document.querySelectorAll('.nav-links a');
 
-                    // Menu Toggle Logic
                     if (menuBtn && overlay) {
                         menuBtn.addEventListener('click', () => {
                             overlay.classList.toggle('active');
@@ -980,7 +1101,6 @@ function openBlog(blogSlug) {
                             }
                         });
 
-                        // Close menu on link click
                         navLinks.forEach(link => {
                             link.addEventListener('click', () => {
                                 overlay.classList.remove('active');
@@ -990,7 +1110,6 @@ function openBlog(blogSlug) {
                         });
                     }
 
-                    // Scroll Logic (Glassmorphism effect)
                     window.addEventListener('scroll', () => {
                         if (window.scrollY > 50) {
                             navBar.classList.add('scrolled');
@@ -1002,7 +1121,7 @@ function openBlog(blogSlug) {
                 }, 100);
             })
             .catch(err => console.error('Error loading components:', err));
-        
+
         // Load blog when page loads
         loadBlog();
     </script>
